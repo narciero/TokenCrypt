@@ -19,10 +19,8 @@ KeyStore keyStore = *your implementation here*;
 
 TokenCrypt tokenCrypt = new TokenCrypt(tokenStore, keyStore);
 
-// Create a Token
+// Create and save a Token
 Token token = new Token("MyTokenId", "MyTokenValue");
-
-// Save the token
 tokenCrypt.saveToken(token);
 
 // Retrieve/Delete the token
@@ -33,8 +31,16 @@ tokenCrypt.removeToken("MyTokenId");
 ```
 // Different levels of customization based on the TokenCrypt constructor you use
 
+// Default - uses AES
 TokenCrypt tc = new TokenCrypt(tokenStore, keyStore);
-TokenCrypt tc = new TokenCrypt(tokenStore, keyStore, algorithm); // Specify algorithm for key generation and encryption
-TokenCrypt tc = new TokenCrypt(tokenStore, keyStore, tokenCryptor, keyAlgorithm); //
+
+// Specify algorithm for key generation and encryption
+TokenCrypt tc = new TokenCrypt(tokenStore, keyStore, algorithm);
+
+// Specify TokenCryptor implementation to use for encryption/decryption along with key generation algorithm to use
+TokenCrypt tc = new TokenCrypt(tokenStore, keyStore, tokenCryptor, keyAlgorithm);
+
+// Specify TokenCryptor implementation to use for encryption/decryption along with a SecretKey object
+TokenCrypt tc = new TokenCrypt(tokenStore, keyStore, tokenCryptor, secretKey);
 ```
-**TokenCryptor** - A default implementation is provided for which you can specify which encryption algorithm to use however if you would like to provide your own encrypt/decrypt methods plug it in here.
+**TokenCryptor** - A default implementation is provided for which you can specify the encryption algorithm to use (or default - AES) however if you would like to implement your own encrypt/decrypt methods plug it in here.
