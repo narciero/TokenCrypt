@@ -7,4 +7,6 @@ public interface TokenStore {
     void saveToken(Token token);
 
     void removeToken(String tokenId);
+
+    void removeAllToken();
 }
